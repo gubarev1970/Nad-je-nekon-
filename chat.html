@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css"> <!-- Pro stylování, pokud chceš -->
+    <script src="script.js" defer></script>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 300px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+</style>
+
+</head>
+<body>
+    <select id="emoticon-select">
+    <option value=":)">😊</option>
+    <option value=":(">😢</option>
+    <option value=":P">😜</option>
+    <option value=":*">😘</option>
+    <option value="<3">❤️</option>
+    <!-- Přidej další smajlíky -->
+</select>
+
+<h2>Chat</h2>
+    <div id="chat-box">
+        <div id="messages"></div>
+    </div>
+    <textarea id="message" placeholder="Napište zprávu..."></textarea>
+    <button id="send">Odeslat</button>
+<script src="script.js"></script>
+    <script>
+  // script.js
+
+// Funkce pro přidání mincí uživateli po úspěšné platbě
+function pridatMince(pocetMincí) {
+    // Kontrola, zda už mince v localStorage existují
+    let aktualniMince = localStorage.getItem('mince');
+    
+    if (aktualniMince) {
+        aktualniMince = parseInt(aktualniMince) + pocetMincí;
+    } else {
+        aktualniMince = pocetMincí;
+    }
+
+    // Uložíme nové množství mincí do localStorage
+    localStorage.setItem('mince', aktualniMince);
+    alert('Bylo přidáno ' + pocetMincí + ' mincí. Nyní máte celkem ' + aktualniMince + ' mincí.');
+}
+
+// Příklad volání funkce po úspěšné platbě (tento kód voláš po potvrzení platby v PayPal scriptu)
+function potvrditPlatbu(pocetMincí) {
+    pridatMince(pocetMincí);
+}
+
+// Testovací příklad (ten můžeš smazat nebo upravit):
+// potvrditPlatbu(150); // Přidá uživateli 150 mincí
+function odecistMinceZaZpravu() {
+    let aktualniMince = localStorage.getItem('mince');
+    if (aktualniMince && aktualniMince >= 30) {
+        localStorage.setItem('mince', aktualniMince - 30);
+        alert('Odeslána zpráva. Zbývající mince: ' + (aktualniMince - 30));
+    } else {
+        alert('Nemáte dostatek mincí pro odeslání zprávy.');
+        // Můžeš přidat přesměrování na platební stránku, pokud mince dojdou.
+        window.location.href = "platba.html";
+    }
+}
+
+    const emoticons = {
+    ":)": "😊",  // Usmívající se obličej
+    ":(": "😢",  // Smutný obličej
+    ":P": "😜",  // Vyplazený jazyk
+    ":*": "😘",  // Pusinka
+    "<3": "❤️",  // Srdce
+    // Přidej další smajlíky podle potřeby
+};
+
+</script>
+</body>
+</html>

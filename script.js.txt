@@ -1,0 +1,62 @@
+// script.js
+
+// Funkce pro přidání mincí uživateli po úspěšné platbě
+function pridatMince(pocetMincí) {
+    // Kontrola, zda už mince v localStorage existují
+    let aktualniMince = localStorage.getItem('mince');
+    
+    if (aktualniMince) {
+        aktualniMince = parseInt(aktualniMince) + pocetMincí;
+    } else {
+        aktualniMince = pocetMincí;
+    }
+
+    // Uložíme nové množství mincí do localStorage
+    localStorage.setItem('mince', aktualniMince);
+    alert('Bylo přidáno ' + pocetMincí + ' mincí. Nyní máte celkem ' + aktualniMince + ' mincí.');
+}
+
+// Příklad volání funkce po úspěšné platbě (tento kód voláš po potvrzení platby v PayPal scriptu)
+function potvrditPlatbu(pocetMincí) {
+    pridatMince(pocetMincí);
+}
+
+// Testovací příklad (ten můžeš smazat nebo upravit):
+// potvrditPlatbu(150); // Přidá uživateli 150 mincí
+function odecistMinceZaZpravu() {
+    let aktualniMince = localStorage.getItem('mince');
+    if (aktualniMince && aktualniMince >= 30) {
+        localStorage.setItem('mince', aktualniMince - 30);
+        alert('Odeslána zpráva. Zbývající mince: ' + (aktualniMince - 30));
+    } else {
+        alert('Nemáte dostatek mincí pro odeslání zprávy.');
+        // Můžeš přidat přesměrování na platební stránku, pokud mince dojdou.
+        window.location.href = "platba.html";
+    }
+}
+function zobrazitMince() {
+    let mince = localStorage.getItem('mince') || 0;
+    document.getElementById('stavMince').innerText = 'Máte ' + mince + ' mincí.';
+}
+function ulozitProfil(uzivatelskeJmeno, email, vek) {
+    let profil = {
+        jmeno: uzivatelskeJmeno,
+        email: email,
+        vek: vek
+    };
+    localStorage.setItem('profil', JSON.stringify(profil));
+}
+
+function nacistProfil() {
+    let profil = JSON.parse(localStorage.getItem('profil'));
+    if (profil) {
+        alert('Vítejte zpět, ' + profil.jmeno + '!');
+    }
+}
+function zkontrolovatMince() {
+    let mince = localStorage.getItem('mince') || 0;
+    if (mince < 30) {
+        alert('Nemáte dostatek mincí. Klikněte zde pro doplnění.');
+        window.location.href = "platba.html";
+    }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Naděje nekončí - Nákup mincí</title>
+    <script src="index.js" defer></script>
+ <script src="https://www.paypal.com/sdk/js?client-id=ATwYZClcm-fFopcI8JcmoSF2-851w0ing7pnUDFEJrqbBR6crMkkTKok2MNve80-uHrBkgErwwv8bXf2
+"></script> <!-- Změň client-id na své vlastní -->
+</head>
+<body>
+    <h1>Nákup mincí</h1>
+    <h2> vyberte si z rozbalovací nabídky kolik chcete koupit mincí, minimim je 500 mincí =250 Kč  z pole Qantity si vyberte 1-20,  1= 500 mincí = 250kč</h2>
+    <h3> v chatu stojí zpráva 30 mincí což je 15 Kč,</h3> 
+<label for="coin-amount">Vyberte počet mincí:</label>
+    <select id="coin-amount">
+       <option value="500">500 mincí</option>
+        <option value="1000">1000 mincí</option>
+        <option value="1500">1500 mincí</option>
+        <option value="2000">2000 mincí</option>
+        <option value="2500">2500 mincí</option>
+        <option value="3000">3000 mincí</option>
+        <option value="3500">3500 mincí</option>
+        <option value="4000">4000 mincí</option>
+        <option value="4500">4500 mincí</option>
+        <option value="5000">5000 mincí</option>
+        <option value="6000">6000 mincí</option>
+        <option value="7000">7000 mincí</option>
+        <option value="8000">8000 mincí</option>
+        <option value="9000">9000 mincí</option>
+        <option value="10000">10000 mincí</option>
+      
+    </select>
+    
+    <p id="price-display">Cena: 0 Kč</p>
+    
+   <script src="https://www.paypal.com/sdk/js?client-id=BAA3n-DJTr0hZVJyeM6D10oxwxtcQQsEN2rPgk4GK9pefOXTR0txalqLm2xCmBou4DsozvXh2I7fD-epEI&components=hosted-buttons&disable-funding=venmo&currency=CZK"></script>
+<div id="paypal-container-NKFVZM9U83VAA"></div>
+   <script>
+     paypal.HostedButtons({
+    hostedButtonId: "NKFVZM9U83VAA",
+  }).render("#paypal-container-NKFVZM9U83VAA")
+
+ // JavaScript pro zobrazení ceny
+        const coinSelect = document.getElementById("coin-amount");
+        const priceDisplay = document.getElementById("price-display");
+        const purchaseButton = document.getElementById("purchase-button");
+
+        // Cena za 30 mincí je 15 Kč
+        const pricePer30Coins = 15;
+        const coinsPerTransaction = 30;
+    
+  function updatePrice() {
+            const selectedCoins = parseInt(coinSelect.value);
+            const totalPrice = (selectedCoins / coinsPerTransaction) * pricePer30Coins;
+            priceDisplay.textContent = `Cena: ${totalPrice.toFixed(2)} Kč`; // Otočení na 2 desetinná místa
+        }
+
+        // Aktualizace ceny při změně výběru mincí
+        coinSelect.addEventListener("change", updatePrice);
+          function updatePrice() {
+            const selectedCoins = parseInt(coinSelect.value);
+            const totalPrice = (selectedCoins / coinsPerTransaction) * pricePer30Coins;
+            priceDisplay.textContent = `Cena: ${totalPrice.toFixed(2)} Kč`; // Otočení na 2 desetinná místa
+        }
+
+        // Aktualizace ceny při změně výběru mincí
+        coinSelect.addEventListener("change", updatePrice);
+        // Inicializace ceny při načtení stránky
+        updatePrice();
+</script>
+</body>
+</html>
